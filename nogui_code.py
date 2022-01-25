@@ -4,13 +4,31 @@ import mysql.connector as mysq
 con_obj = mysq.connect(host="localhost", user="root", password="root", database="project")
 cursor_obj = con_obj.cursor()
 
+def type_login():
+    print("""Select the type of login:-
+---------------------------------
+[1] Admin
+[2] User
+---------------------------------""")
+    type_choice = int(input("Your choice: "))
 
-def beginning_screen():
+    if type_choice==1:
+        admin_login_screen()
+
+    if type_choice==2:
+        user_login_screen()
+
+#Under a subject of research and development
+def admin_login_screen():
+    pass
+
+def user_login_screen():
     while True:
-        print("""[1] Log-in 
+        print("""\nUSER LOGIN
+[1] Log-in 
 [2] Register
 [3] Exit
-[4] Complaints""")
+[4] File a complaint""")
         user_choice = int(input("\nYour choice: "))
 
         if user_choice==1:
@@ -24,7 +42,7 @@ def beginning_screen():
             exit()
 
         elif user_choice==4:
-            pass
+            complaints()
 
         else:
             print("Invalid Choice!")
@@ -63,10 +81,22 @@ def log_in():
 # if con_obj.is_connected():
 #     print("Successfully connected")
 
+#Under a subject of research and development
+def complaints():
+    complaint = input("Enter your complaint: ")
+
+    query = "INSERT INTO USER_COMPLAINTS VALUES(%s)"%(complaint)
+    cursor_obj.execute(query)
+    user_complaints = cursor_obj.fetchall()
+    print(user_complaints)
+
+
+
+
 if __name__ == '__main__':
     print("""=========================================
 Welcome to Online Shopping Service!!
 =========================================""")
 
-    beginning_screen()
+    type_login()
 
