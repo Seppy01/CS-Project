@@ -101,146 +101,267 @@ def success_login():
 [3] Cart
 [4] Go Back
 [5] Exit""")
+    while True:
+        user_choice_main = int(input("Your choice: "))
 
-    user_choice_main = int(input("Your choice: "))
-
-    if user_choice_main==1:
-        print("""Product Categories:-
+        if user_choice_main==1:
+            print("""Product Categories:-
 [1] Technology
 [2] Food
 [3] Clothing
 [4] Home Decor""")
 
-        catg_choice = int(input("Your choice: "))
+            while True:
+                catg_choice = int(input("Your choice: "))
 
-        if catg_choice==1:
-            print("""Products Available:- 
+                if catg_choice==1:
+                    print("""Products Available:- 
 [1] TVs
 [2] Laptops
-[3] Smartphones""")
+[3] Smartphones
+[4] Home Appliances""")
 
-            tech_choice = int(input("Your choice: "))
+                    tech_choice = int(input("Your choice: "))
+                    
+                    if tech_choice==1:               
+                        print("TV Models Available:-")
+                        tv_choice_query = "SELECT * FROM TV"
+                        cursor_obj.execute(tv_choice_query)
+                        tv_data_tup = cursor_obj.fetchall()
+                        
+                        for i in tv_data_tup:
+                            print(i)
+                        
+                        while True:
+                            tv_model_num = int(input("Enter model number: "))
+                            
+                            if tv_model_num in range(1,9):
+                                break
+
+                            else:
+                                print("Invalid Model Number")
+
+                        display_specs = "SELECT * FROM TV WHERE MODELNO={}".format(tv_model_num)
+                        cursor_obj.execute(display_specs)
+                        specs_tup = cursor_obj.fetchall()
+                        
+                        print("\n--------------------------")
+                        print("Your selected model:-")
+                        for i in specs_tup:
+                            print(f"""Model No: {i[0]}
+Brand: {i[1]}
+Resolution: {i[2]}
+Display Size: {i[3]}
+Price: {i[4]}
+--------------------------""")
+
+                        print("""\n[1] Add to cart
+[2] Buy
+[3] Exit""")
+                        tv_next_option = int(input("Your choice: "))
+
+                        #Add to cart under development
+                        if tv_next_option==1:
+                            pass
+
+                        elif tv_next_option==2:
+                            transaction()
+
+                    #Under development
+                    elif tech_choice==2:
+                        print("Laptop Models Available:-")
+                        laptop_choice_query = "SELECT * FROM LAPTOPS"
+                        cursor_obj.execute(laptop_choice_query)
+                        laptop_data_tup = cursor_obj.fetchall()
+
+                        for lap_mod in laptop_data_tup:
+                            print(lap_mod)
+                        
+                        while True:
+                            lap_model_num = int(input("Enter model number: "))
+                            
+                            if lap_model_num in range(1,9):
+                                break
+
+                            else:
+                                print("Invalid Model Number")
+
+                        lap_display_specs = "SELECT * FROM LAPTOPS WHERE MODELNO={}".format(lap_model_num)
+                        cursor_obj.execute(lap_display_specs)
+                        lap_specs_tup = cursor_obj.fetchall()
+                        
+                        print("\n--------------------------")
+                        print("Your selected model:-")
+                        for i in lap_specs_tup:
+                            print(f"""Model No: {i[0]}
+Brand: {i[1]}
+Type: {i[2]}
+Processor: {i[3]}
+Ram: {i[4]}
+GPU: {i[5]}
+Display Size: {i[6]}
+Price: {i[7]}
+--------------------------""")
+
+                        print("""\n[1] Add to cart
+[2] Buy
+[3] Exit""")
+                        lap_next_option = int(input("Your choice: "))
+
+                        #Add to cart under development
+                        if lap_next_option==1:
+                            pass
+
+                        elif lap_next_option==2:
+                            transaction()
+
+                    #Under development
+                    elif tech_choice==3:
+                        print("Smartphone Models Available:-")
+                        phone_choice_query = "SELECT * FROM SMARTPHONES"
+                        cursor_obj.execute(phone_choice_query)
+                        phone_data_tup = cursor_obj.fetchall()
+
+                        for phone_mod in phone_data_tup:
+                            print(phone_mod)
+                        
+                        while True:
+                            phone_model_num = int(input("Enter model number: "))
+                            
+                            if phone_model_num in range(1,11):
+                                break
+
+                            else:
+                                print("Invalid Model Number")
+
+                        phone_display_specs = "SELECT * FROM SMARTPHONES WHERE MODELNO={}".format(phone_model_num)
+                        cursor_obj.execute(phone_display_specs)
+                        phone_specs_tup = cursor_obj.fetchall()
+                        
+                        print("\n--------------------------")
+                        print("Your selected model:-")
+                        for i in phone_specs_tup:
+                            print(f"""Model No: {i[0]}
+Brand: {i[1]}
+Name: {i[2]}
+Storage: {i[3]}
+Colour: {i[4]}
+Camera: {i[5]}
+Price Size: {i[6]}
+--------------------------""")
+
+                        print("""\n[1] Add to cart
+[2] Buy
+[3] Exit""")
+                        phone_next_option = int(input("Your choice: "))
+
+                        #Add to cart under development
+                        if phone_next_option==1:
+                            pass
+
+                        elif phone_next_option==2:
+                            transaction()
+
+
+                    elif tech_choice==4:
+                        print("Home Appliances Products Available:-")
+                        appl_choice_query = "SELECT * FROM APPLIANCES"
+                        cursor_obj.execute(appl_choice_query)
+                        appl_data_tup = cursor_obj.fetchall()
+
+                        for appl_mod in appl_data_tup:
+                            print(appl_mod)
+
+                        while True:
+                            appl_model_num = int(input("Enter model number: "))
+                            
+                            if appl_model_num in range(1,9):
+                                break
+
+                            else:
+                                print("Invalid Model Number")
+
+                        appl_specs = "SELECT * FROM APPLIANCES WHERE MODELNO={}".format(appl_model_num)
+                        cursor_obj.execute(appl_specs)
+                        appl_specs_tup = cursor_obj.fetchall()
+
+                        print("\n--------------------------")
+                        print("Your selected model:-")
+                        for i in appl_specs_tup:
+                            print(f"""Model No: {i[0]}
+Brand: {i[1]}
+Type: {i[2]}
+Price: {i[3]}
+--------------------------""")
+
+                        print("""\n[1] Add to cart
+[2] Buy
+[3] Exit""")
+
+                        appl_next_option = int(input("Your choice: "))
+
+                        #Add to cart under development
+                        if appl_next_option==1:
+                            pass
+
+                        elif appl_next_option==2:
+                            transaction()
+
+                    else:
+                        print("Invalid Choice!")
             
-            if tech_choice==1:               
-                print("TV Models Available:-")
-                tv_choice_query = "SELECT * FROM TV"
-                cursor_obj.execute(tv_choice_query)
-                tv_data_tup = cursor_obj.fetchall()
-                
-                for i in tv_data_tup:
-                    print(i)
-                
-                tv_model_num = int(input("Enter model number: "))
-                display_specs = "SELECT * FROM TV WHERE MODELNO={}".format(tv_model_num)
-                cursor_obj.execute(display_specs)
-                specs_tup = cursor_obj.fetchall()
-                
-                print("\n--------------------------")
-                print("Your selected model:-")
-                for i in specs_tup:
-                    print(f"""Model No: {i[0]}
-                Brand: {i[1]}
-                Resolution: {i[2]}
-                Display Size: {i[3]}
-                Price: {i[4]}
-                --------------------------""")
-
-                print("""\n[1] Add to cart
-[2] Buy
-[3] Exit""")
-                tv_next_option = int(input("Your choice: "))
-
-                #Add to cart under development
-                if tv_next_option==1:
-                    pass
-
-                elif tv_next_option==2:
-                    transaction()
-
-            #Under development
-            elif tech_choice==2:
-                print("Laptop Models Available:-")
-                laptop_choice_query = "SELECT * FROM LAPTOPS"
-                cursor_obj.execute(laptop_choice_query)
-                laptop_data_tup = cursor_obj.fetchall()
-
-                for lap_mod in laptop_data_tup:
-                    print(lap_mod)
-                
-                lap_model_num = int(input("Enter model number: "))
-                lap_display_specs = "SELECT * FROM LAPTOPS WHERE MODELNO={}".format(lap_model_num)
-                cursor_obj.execute(lap_display_specs)
-                lap_specs_tup = cursor_obj.fetchall()
-                
-                print("\n--------------------------")
-                print("Your selected model:-")
-                for i in lap_specs_tup:
-                    print(f"""Model No: {i[0]}
-                Brand: {i[1]}
-                Type: {i[2]}
-                Processor: {i[3]}
-                Ram: {i[4]}
-                GPU: {i[5]}
-                Display Size: {i[6]}
-                Price: {i[7]}
-                --------------------------""")
-
-                print("""\n[1] Add to cart
-[2] Buy
-[3] Exit""")
-                lap_next_option = int(input("Your choice: "))
-
-                #Add to cart under development
-                if lap_next_option==1:
-                    pass
-
-                elif lap_next_option==2:
-                    transaction()
-
-            #Under development
-            elif tech_choice==3:
-                pass
-
-            else:
-                print("Invalid Choice!")
-        
-        #Under development
-        elif catg_choice==2:
-            print("""Products Available:- 
+                #Under development
+                elif catg_choice==2:
+                    print("""Products Available:- 
 [1] Groceries
 [2] Beverages
 [3] Dairy Products
 [4] Snacks""")
 
-            food_choice = int(input("Enter your choice: "))
+                    food_choice = int(input("Enter your choice: "))
+                    
+                    if food_choice==1:
+                        pass
+
+                    elif food_choice==2:
+                        pass
+
+                    elif food_choice==3:
+                        pass
+
+                    elif food_choice==4:
+                        pass
+
+                    else:
+                        print("Invalid choice!")
+
+                #Under development
+                elif catg_choice==3:
+                    pass
+                
+                #Under development
+                elif catg_choice==4:
+                    pass
+
+                else:
+                    print("Invalid Choice!")
 
         #Under development
-        elif catg_choice==3:
+        elif user_choice_main==2:
             pass
         
         #Under development
-        elif catg_choice==4:
+        elif user_choice_main==3:
             pass
 
+        elif user_choice_main==4:
+            log_in()
+
+        elif user_choice_main==5:
+            exit()
+
         else:
-            print("Invalid Choice!")
-
-    #Under development
-    elif user_choice_main==2:
-        pass
-    
-    #Under development
-    elif user_choice_main==3:
-        pass
-
-    elif user_choice_main==4:
-        log_in()
-
-    elif user_choice_main==5:
-        exit()
-
-    else:
-        print("Invalid choice!")
+            print("Invalid choice!")
 
 #Working as intended
 def transaction():
