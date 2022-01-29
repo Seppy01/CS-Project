@@ -322,16 +322,96 @@ Price: {i[3]}
                     food_choice = int(input("Enter your choice: "))
                     
                     if food_choice==1:
-                        pass
+                        fruits_query = "SELECT FRUITS FROM FOOD"
+                        cursor_obj.execute(fruits_query)
+                        fruits_data = cursor_obj.fetchall()
+
+                        print("Fruits Available:-")
+                        for i in fruits_data:
+                            print(i[0])
+
+                        fruit_purchase = input("Enter fruit for purchase: ")
+                        print(f"Fruit to be purchased: {fruit_purchase}")
+                        print("""\n[1] Add to cart
+[2] Buy
+[3] Exit""")
+                        fruit_next_option = int(input("Your choice: "))
+
+                        #Add to cart under development
+                        if fruit_next_option==1:
+                            pass
+
+                        elif fruit_next_option==2:
+                            transaction()
 
                     elif food_choice==2:
-                        pass
+                        vegs_query = "SELECT VEGETABLES FROM FOOD"
+                        cursor_obj.execute(vegs_query)
+                        vegs_data = cursor_obj.fetchall()
+
+                        print("Vegetables Available:-")
+                        for i in vegs_data:
+                            print(i[0])
+
+                        vegs_purchase = input("Enter vegetables for purchase: ")
+                        print(f"Vegetables to be purchased: {vegs_purchase}")
+                        print("""\n[1] Add to cart
+[2] Buy
+[3] Exit""")
+                        vegs_next_option = int(input("Your choice: "))
+
+                        #Add to cart under development
+                        if vegs_next_option==1:
+                            pass
+
+                        elif vegs_next_option==2:
+                            transaction()
 
                     elif food_choice==3:
-                        pass
+                        bvgs_query = "SELECT BEVERAGES FROM FOOD"
+                        cursor_obj.execute(bvgs_query)
+                        bvgs_data = cursor_obj.fetchall()
+
+                        print("Beverages Available:-")
+                        for i in bvgs_data:
+                            print(i[0])
+
+                        bvgs_purchase = input("Enter beverages for purchase: ")
+                        print(f"Beverages to be purchased: {bvgs_purchase}")
+                        print("""\n[1] Add to cart
+[2] Buy
+[3] Exit""")
+                        bvgs_next_option = int(input("Your choice: "))
+
+                        #Add to cart under development
+                        if bvgs_next_option==1:
+                            pass
+
+                        elif bvgs_next_option==2:
+                            transaction()
 
                     elif food_choice==4:
-                        pass
+                        dairy_query = "SELECT DAIRY_PRODUCTS FROM FOOD"
+                        cursor_obj.execute(dairy_query)
+                        dairy_data = cursor_obj.fetchall()
+
+                        print("Dairy Products Available:-")
+                        for i in dairy_data:
+                            print(i[0])
+
+                        dairy_purchase = input("Enter dairy products for purchase: ")
+                        print(f"Dairy Products to be purchased: {dairy_purchase}")
+                        print("""\n[1] Add to cart
+[2] Buy
+[3] Exit""")
+                        dairy_next_option = int(input("Your choice: "))
+
+                        #Add to cart under development
+                        if dairy_next_option==1:
+                            pass
+
+                        elif dairy_next_option==2:
+                            transaction()
 
                     else:
                         print("Invalid choice!")
