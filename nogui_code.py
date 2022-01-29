@@ -102,18 +102,18 @@ def success_login():
 [4] Go Back
 [5] Exit""")
 
-    user_choice = int(input("Your choice: "))
+    user_choice_main = int(input("Your choice: "))
 
-    if user_choice==1:
+    if user_choice_main==1:
         print("""Product Categories:-
 [1] Technology
-[2] Groceries
+[2] Food
 [3] Clothing
 [4] Home Decor""")
 
         catg_choice = int(input("Your choice: "))
 
-        if user_choice==1:
+        if catg_choice==1:
             print("""Products Available:- 
 [1] TVs
 [2] Laptops
@@ -121,23 +121,7 @@ def success_login():
 
             tech_choice = int(input("Your choice: "))
             
-            if tech_choice==1:
-#                 print("""---------------------------------
-# Brands Available:-
-# [1] SungSam
-# [2] GL TV
-
-# Resolution Available:-
-# [1] FHD - 1920x1080
-# [2] UHD - 3840x2160
-# [3] 4K  - 4096x2160
-
-# Display size:-
-# [1] 65 inches
-# [2] 60 inches
-# [3] 55 inches
-# ---------------------------------\n
-# """)          
+            if tech_choice==1:               
                 print("TV Models Available:-")
                 tv_choice_query = "SELECT * FROM TV"
                 cursor_obj.execute(tv_choice_query)
@@ -146,56 +130,73 @@ def success_login():
                 for i in tv_data_tup:
                     print(i)
                 
-                model_num = int(input("Enter model number: "))
+                tv_model_num = int(input("Enter model number: "))
+                display_specs = "SELECT * FROM TV WHERE MODELNO={}".format(tv_model_num)
+                cursor_obj.execute(display_specs)
+                specs_tup = cursor_obj.fetchall()
+                
+                print("\n--------------------------")
+                print("Your selected model:-")
+                for i in specs_tup:
+                    print(f"""Model No: {i[0]}
+                Brand: {i[1]}
+                Resolution: {i[2]}
+                Display Size: {i[3]}
+                Price: {i[4]}
+                --------------------------""")
 
-                print("""[1] Add to cart
+                print("""\n[1] Add to cart
 [2] Buy
 [3] Exit""")
-                next_option = int(input("Your choice: "))
+                tv_next_option = int(input("Your choice: "))
 
-                if next_option==1:
+                #Add to cart under development
+                if tv_next_option==1:
                     pass
 
-                elif next_option==2:
+                elif tv_next_option==2:
                     transaction()
-
-                # tv_res_choice = int(input("Your resolution choice: "))
-                # tv_disp_choice = int(input("Your display size choice: "))
-
-                # if tv_res_choice==1:
-                #     res_choice = "FHD"
-
-                # elif tv_res_choice==2:
-                #     res_choice = "UHD"
-
-                # elif tv_res_choice==3:
-                #     res_choice = "4K"
-
-                # disp_size = str(tv_disp_choice) + ' inches'
-                # tv_choice_query = "SELECT * FROM TV WHERE RESOLUTION='{}' AND DISPLAY_SIZE='{}'".format(res_choice, disp_size)
-                # cursor_obj.execute(tv_choice_query)
-                # tv_data_tup = cursor_obj.fetchall()
-                # print(tv_data_tup)
-                # exit()
-
-#                 if tv_brand_choice==1:
-#                     print("""[1] SumSang 57 Inches UHD
-# [2] SumSang 65 Inches 4K""")
-#                 #Under development
-#                 elif tv_brand_choice==2:
-#                     pass
-                
-#                 #Under development
-#                 elif tv_brand_choice==3:
-#                     pass
-
-#                 else:
-#                     print("Invalid Choice!")
 
             #Under development
             elif tech_choice==2:
-                pass
-            
+                print("Laptop Models Available:-")
+                laptop_choice_query = "SELECT * FROM LAPTOPS"
+                cursor_obj.execute(laptop_choice_query)
+                laptop_data_tup = cursor_obj.fetchall()
+
+                for lap_mod in laptop_data_tup:
+                    print(lap_mod)
+                
+                lap_model_num = int(input("Enter model number: "))
+                lap_display_specs = "SELECT * FROM LAPTOPS WHERE MODELNO={}".format(lap_model_num)
+                cursor_obj.execute(lap_display_specs)
+                lap_specs_tup = cursor_obj.fetchall()
+                
+                print("\n--------------------------")
+                print("Your selected model:-")
+                for i in lap_specs_tup:
+                    print(f"""Model No: {i[0]}
+                Brand: {i[1]}
+                Type: {i[2]}
+                Processor: {i[3]}
+                Ram: {i[4]}
+                GPU: {i[5]}
+                Display Size: {i[6]}
+                Price: {i[7]}
+                --------------------------""")
+
+                print("""\n[1] Add to cart
+[2] Buy
+[3] Exit""")
+                lap_next_option = int(input("Your choice: "))
+
+                #Add to cart under development
+                if lap_next_option==1:
+                    pass
+
+                elif lap_next_option==2:
+                    transaction()
+
             #Under development
             elif tech_choice==3:
                 pass
@@ -204,37 +205,44 @@ def success_login():
                 print("Invalid Choice!")
         
         #Under development
-        elif user_choice==2:
+        elif catg_choice==2:
+            print("""Products Available:- 
+[1] Groceries
+[2] Beverages
+[3] Dairy Products
+[4] Snacks""")
+
+            food_choice = int(input("Enter your choice: "))
+
+        #Under development
+        elif catg_choice==3:
             pass
         
         #Under development
-        elif user_choice==3:
-            pass
-        
-        #Under development
-        elif user_choice==4:
+        elif catg_choice==4:
             pass
 
         else:
             print("Invalid Choice!")
 
     #Under development
-    elif user_choice==2:
+    elif user_choice_main==2:
         pass
     
     #Under development
-    elif user_choice==3:
+    elif user_choice_main==3:
         pass
 
-    elif user_choice==4:
+    elif user_choice_main==4:
         log_in()
 
-    elif user_choice==5:
+    elif user_choice_main==5:
         exit()
 
     else:
         print("Invalid choice!")
 
+#Working as intended
 def transaction():
     print("""Mode of Transaction:-
 [1] Credit Card
@@ -246,10 +254,63 @@ def transaction():
         if transaction_mode==1:
             credit_card()
 
+        elif transaction_mode==2:
+            cash_delivery()
+
+#Working as intended
+def cash_delivery():
+    print("""Payment Method: Cash-On-Delivery
+
+Additional charges(for cash on delivery mode): 10 AED
+-------------------------------------------------------------------------
+
+[1] Continue Shopping
+[2] Exit""")
+
+    while True:
+        trans_next = int(input("Your choice: "))
+
+        if trans_next==1:
+            success_login()
+        
+        elif trans_next==2:
+            print("Thank you for using our shopping service!!\nHave a great day ahead!")
+            print("-------------------------------------------------------------------------")
+            exit()
+
+#Working as intended
 def credit_card():
-    card_num = int(input("Enter card number: "))
-    card_exp = input("Enter card expiry date: ")
-    card_cvv = int(input("Enter card CVV: "))
+    while True:
+        card_num = input("Enter card number: ")
+        card_exp = input("Enter card expiry date: ")
+        card_cvv = int(input("Enter card CVV: "))
+
+        check_card_validity = "select exists(select * from credit_card_details where card_num='{}' and card_exp='{}' and card_cvv={})".format(card_num, card_exp, card_cvv)
+        cursor_obj.execute(check_card_validity)
+        validity = cursor_obj.fetchone()
+
+        for i in validity:
+            if i==1:
+                print("\nPayment has been successfully made!\nThank you for shopping with us!\n")
+                print("""---------------------------------
+[1] Continue Shopping
+[2] Exit""")    
+                while True:
+                    trans_next = int(input("Your choice: "))
+
+                    if trans_next==1:
+                        success_login()
+                    
+                    elif trans_next==2:
+                        print("Thank you for using our shopping service!!\nHave a great day ahead!")
+                        print("-------------------------------------------------------------------------")
+                        exit()
+                    
+                    else:
+                        print("Invalid choice!")
+            else:
+                print("Invalid card information!")
+
 
 if __name__ == '__main__':
     print("""=========================================
