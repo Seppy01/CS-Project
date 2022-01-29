@@ -313,10 +313,11 @@ Price: {i[3]}
                 #Under development
                 elif catg_choice==2:
                     print("""Products Available:- 
-[1] Groceries
-[2] Beverages
-[3] Dairy Products
-[4] Snacks""")
+[1] Fruits
+[2] Vegetables
+[3] Beverages
+[4] Dairy Products
+""")
 
                     food_choice = int(input("Enter your choice: "))
                     
