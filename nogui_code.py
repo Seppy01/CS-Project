@@ -109,7 +109,7 @@ def success_login():
 [1] Technology
 [2] Food
 [3] Clothing
-[4] Home Decor""")
+[4] Furniture & Home Decor""")
 
             while True:
                 catg_choice = int(input("Your choice: "))
@@ -413,7 +413,6 @@ Price: {i[3]}
                     else:
                         print("Invalid choice!")
 
-                #Under development
                 elif catg_choice==3:
                     print("""Clothing Categories:- 
 [1] Men's Fashion
@@ -513,9 +512,47 @@ Price: {i[4]}
                     else:
                         print("Invalid choice!")
 
-                #Under development
                 elif catg_choice==4:
-                    pass
+                    furn_query = "SELECT * FROM FURNDECOR"
+                    cursor_obj.execute(furn_query)
+                    furn_data = cursor_obj.fetchall()
+                    
+                    for products in furn_data:
+                        print(products)
+                    
+                    while True:
+                            furn_choice = int(input("Enter number: "))
+                            
+                            if furn_choice in range(1,9):
+                                break
+
+                            else:
+                                print("Invalid Model Number")
+
+                    furn_details = "SELECT * FROM FURNDECOR WHERE SRNO={}".format(furn_choice)
+                    cursor_obj.execute(furn_details)
+                    furn_tup = cursor_obj.fetchall()
+                    
+                    print("\n--------------------------")
+                    print("Your selected furniture:-")
+                    for i in furn_tup:
+                        print(f"""Sr No: {i[0]}
+Type: {i[1]}
+Colour: {i[2]}
+Price: {i[3]}
+--------------------------""")
+
+                    print("""\n[1] Add to cart
+[2] Buy
+[3] Exit""")
+                    furn_next = int(input("Your choice: "))
+
+                    #Add to cart under development
+                    if furn_next==1:
+                        pass
+
+                    elif furn_next==2:
+                        transaction()
 
                 else:
                     print("Invalid Choice!")
@@ -576,9 +613,9 @@ Additional charges(for cash on delivery mode): 10 AED
 #Working as intended
 def credit_card():
     while True:
-        card_num = input("Enter card number: ")
-        card_exp = input("Enter card expiry date: ")
-        card_cvv = int(input("Enter card CVV: "))
+        card_num = input("Enter card number(XXXX-XXXX-XXXX): ")
+        card_exp = input("Enter card expiry date(MM/YY): ")
+        card_cvv = int(input("Enter card CVV(XXX): "))
 
         check_card_validity = "select exists(select * from credit_card_details where card_num='{}' and card_exp='{}' and card_cvv={})".format(card_num, card_exp, card_cvv)
         cursor_obj.execute(check_card_validity)
