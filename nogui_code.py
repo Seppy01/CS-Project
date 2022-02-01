@@ -167,7 +167,6 @@ Price: {i[4]}
                         elif tv_next_option==2:
                             transaction()
 
-                    #Under development
                     elif tech_choice==2:
                         print("Laptop Models Available:-")
                         laptop_choice_query = "SELECT * FROM LAPTOPS"
@@ -215,7 +214,6 @@ Price: {i[7]}
                         elif lap_next_option==2:
                             transaction()
 
-                    #Under development
                     elif tech_choice==3:
                         print("Smartphone Models Available:-")
                         phone_choice_query = "SELECT * FROM SMARTPHONES"
@@ -310,7 +308,6 @@ Price: {i[3]}
                     else:
                         print("Invalid Choice!")
             
-                #Under development
                 elif catg_choice==2:
                     print("""Products Available:- 
 [1] Fruits
@@ -418,8 +415,104 @@ Price: {i[3]}
 
                 #Under development
                 elif catg_choice==3:
-                    pass
+                    print("""Clothing Categories:- 
+[1] Men's Fashion
+[2] Women's Fashion
+""")
                 
+                    cl_catg = int(input("Your choice: "))
+                    
+                    if cl_catg==1:
+                        men_query = "SELECT * FROM MEN_FASHION"
+                        cursor_obj.execute(men_query)
+                        men_data = cursor_obj.fetchall()
+
+                        print("Men's Clothings Available:-")
+                        for i in men_data:
+                            print(i)
+
+                        while True:
+                            men_sr_num = int(input("Enter number: "))
+                            
+                            if men_sr_num in range(1,9):
+                                break
+
+                            else:
+                                print("Invalid Model Number")
+
+                        cloth_details = "SELECT * FROM MEN_FASHION WHERE SRNO={}".format(men_sr_num)
+                        cursor_obj.execute(cloth_details)
+                        cloth_tup = cursor_obj.fetchall()
+                        
+                        print("\n--------------------------")
+                        print("Your selected clothing:-")
+                        for i in cloth_tup:
+                            print(f"""Sr No: {i[0]}
+Type: {i[1]}
+Colour: {i[2]}
+Size Available: {i[3]}
+Price: {i[4]}
+--------------------------""")
+
+                        print("""\n[1] Add to cart
+[2] Buy
+[3] Exit""")
+                        men_clth_next = int(input("Your choice: "))
+
+                        #Add to cart under development
+                        if men_clth_next==1:
+                            pass
+
+                        elif men_clth_next==2:
+                            transaction()
+
+                    elif cl_catg==2:
+                        women_query = "SELECT * FROM WOMEN_FASHION"
+                        cursor_obj.execute(women_query)
+                        women_data = cursor_obj.fetchall()
+
+                        print("Women's Clothings Available:-")
+                        for i in women_data:
+                            print(i)
+
+                        while True:
+                            women_sr_num = int(input("Enter number: "))
+                            
+                            if women_sr_num in range(1,9):
+                                break
+
+                            else:
+                                print("Invalid Model Number")
+
+                        wocloth_details = "SELECT * FROM WOMEN_FASHION WHERE SRNO={}".format(men_sr_num)
+                        cursor_obj.execute(wocloth_details)
+                        wocloth_tup = cursor_obj.fetchall()
+                        
+                        print("\n--------------------------")
+                        print("Your selected clothing:-")
+                        for i in wocloth_tup:
+                            print(f"""Sr No: {i[0]}
+Type: {i[1]}
+Colour: {i[2]}
+Size Available: {i[3]}
+Price: {i[4]}
+--------------------------""")
+
+                        print("""\n[1] Add to cart
+[2] Buy
+[3] Exit""")
+                        women_clth_next = int(input("Your choice: "))
+
+                        #Add to cart under development
+                        if women_clth_next==1:
+                            pass
+
+                        elif women_clth_next==2:
+                            transaction()
+
+                    else:
+                        print("Invalid choice!")
+
                 #Under development
                 elif catg_choice==4:
                     pass
