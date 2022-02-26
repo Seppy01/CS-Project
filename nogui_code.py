@@ -94,7 +94,57 @@ def adm_success():
                     tv_query = "INSERT INTO TV VALUES({},'{}','{}','{}','{}')".format(tv_num, tv_brand, tv_res, tv_disp, tv_prize)
                     cursor_obj.execute(tv_query)
                     con_obj.commit()
+
+                if dec_add_tech==2:
+                    laptop_num = int(input("Enter model num: "))
+                    laptop_brand = input("Enter brand: ")
+                    laptop_type = input("Enter type: ")
+                    laptop_prcs = input("Enter processor: ")
+                    laptop_ram = input("Enter ram: ")
+                    laptop_gpu = input("Enter gpu: ")
+                    laptop_size = input("Enter display size: ")
+                    laptop_price = input("Enter price: ")
+
+                    laptop_query = "INSERT INTO LAPTOPS VALUES({},'{}','{}','{}','{}','{}','{}','{}')".format(laptop_num,
+                                                                                                        laptop_brand,
+                                                                                                        laptop_type,
+                                                                                                        laptop_prcs,
+                                                                                                        laptop_ram,
+                                                                                                        laptop_gpu,
+                                                                                                        laptop_size,
+                                                                                                        laptop_price)
+                    cursor_obj.execute(laptop_query)
+                    con_obj.commit()
+
+                if dec_add_tech==3:
+                    phone_num = int(input("Enter model num: "))
+                    phone_brand = input("Enter brand: ")
+                    phone_name = input("Enter name: ")
+                    phone_storage = input("Enter storage: ")
+                    phone_colour = input("Enter colour: ")
+                    phone_cam = input("Enter camera quality: ")
+                    phone_price = input("Enter price: ")
+
+                    phone_query = "INSERT INTO SMARTPHONES VALUES({},'{}','{}','{}','{}','{}','{}','{}')".format(phone_num,
+                                                                                                        phone_brand,
+                                                                                                        phone_name,
+                                                                                                        phone_storage,
+                                                                                                        phone_colour,
+                                                                                                        phone_cam,                                                                
+                                                                                                        phone_price)
+                    cursor_obj.execute(phone_query)
+                    con_obj.commit()
+
+                if dec_add_tech==4:
+                    app_num = int(input("Enter model num: "))
+                    app_brand = input("Enter brand: ")
+                    app_type = input("Enter type of appliance: ")
+                    app_prize = input("Enter price: ")
                     
+                    app_query = "INSERT INTO TV VALUES({},'{}','{}','{}','{}')".format(app_num, app_brand, app_type, app_prize)
+                    cursor_obj.execute(app_query)
+                    con_obj.commit()
+
             elif adm_ctg==2:
                 pass
 
