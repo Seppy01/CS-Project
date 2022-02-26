@@ -53,7 +53,7 @@ def adm_success():
 [1] See Complaints
 [2] Add Product
 [3] Remove Product
-[4] Modify Product""")
+""")
 
     while True:
         adm_choice = int(input("\nYour choice: "))
@@ -71,9 +71,8 @@ def adm_success():
         elif adm_choice==2:
             print("""Select category:-
 [1] Technology
-[2] Food
-[3] Clothing
-[4] Furniture & Home Decor""")
+[2] Clothing
+[3] Furniture & Home Decor""")
             adm_ctg = int(input("Your choice: "))
 
             if adm_ctg==1:
@@ -125,13 +124,13 @@ def adm_success():
                     phone_cam = input("Enter camera quality: ")
                     phone_price = input("Enter price: ")
 
-                    phone_query = "INSERT INTO SMARTPHONES VALUES({},'{}','{}','{}','{}','{}','{}','{}')".format(phone_num,
-                                                                                                        phone_brand,
-                                                                                                        phone_name,
-                                                                                                        phone_storage,
-                                                                                                        phone_colour,
-                                                                                                        phone_cam,                                                                
-                                                                                                        phone_price)
+                    phone_query = "INSERT INTO SMARTPHONES VALUES({},'{}','{}','{}','{}','{}','{}')".format(phone_num,
+                                                                                                            phone_brand,
+                                                                                                            phone_name,
+                                                                                                            phone_storage,
+                                                                                                            phone_colour,
+                                                                                                            phone_cam,                                                                
+                                                                                                            phone_price)
                     cursor_obj.execute(phone_query)
                     con_obj.commit()
 
@@ -141,28 +140,53 @@ def adm_success():
                     app_type = input("Enter type of appliance: ")
                     app_prize = input("Enter price: ")
                     
-                    app_query = "INSERT INTO TV VALUES({},'{}','{}','{}','{}')".format(app_num, app_brand, app_type, app_prize)
+                    app_query = "INSERT INTO APPLIANCES VALUES({},'{}','{}','{}')".format(app_num, app_brand, app_type, app_prize)
                     cursor_obj.execute(app_query)
                     con_obj.commit()
 
             elif adm_ctg==2:
-                pass
+                print("""Choose clothing type:-
+[1] Men's Fashion
+[2] Women's Fashion""")
+                dec_add_fsh = int(input("Your choice: "))
+
+                if dec_add_fsh==1:
+                    men_num = int(input("Enter model num: "))
+                    men_type = input("Enter brand: ")
+                    men_colour = input("Enter colour: ")
+                    men_size = input("Enter size available: ")
+                    men_price = input("Enter price: ")
+                    
+                    men_query = "INSERT INTO MEN_FASHION VALUES({},'{}','{}','{}','{}')".format(men_num, men_type, men_colour, men_size, men_price)
+                    cursor_obj.execute(men_query)
+                    con_obj.commit()
+
+                if dec_add_fsh==2:
+                    women_num = int(input("Enter model num: "))
+                    women_type = input("Enter brand: ")
+                    women_colour = input("Enter colour: ")
+                    women_size = input("Enter size available: ")
+                    women_price = input("Enter price: ")
+                    
+                    women_query = "INSERT INTO WOMEN_FASHION VALUES({},'{}','{}','{}','{}')".format(women_num, women_type, women_colour, women_size, women_price)
+                    cursor_obj.execute(women_query)
+                    con_obj.commit()
 
             elif adm_ctg==3:
-                pass
-
-            elif adm_ctg==4:
-                pass
+                furn_num = int(input("Enter model num: "))
+                furn_type = input("Enter brand: ")
+                furn_colour = input("Enter colour: ")
+                furn_price = input("Enter price: ")
+                
+                furn_query = "INSERT INTO FURNDECOR VALUES({},'{}','{}','{}','{}')".format(furn_num, furn_type, furn_colour, furn_price)
+                cursor_obj.execute(furn_query)
+                con_obj.commit()
 
         elif adm_choice==3:
             pass
 
-        elif adm_choice==4:
-            pass
-
         else:
             print("Invalid Choice!")
-
 
 
 #Working as intended
