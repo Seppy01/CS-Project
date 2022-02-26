@@ -19,7 +19,6 @@ def type_login():
     if type_choice==2:
         user_login_screen()
 
-#Under a subject of R&D
 def admin_login_screen():
     cursor_obj.execute("SELECT * FROM ADMIN")
     adm_data_tup = cursor_obj.fetchall()
@@ -70,7 +69,40 @@ def adm_success():
                     print(com_rec)
 
         elif adm_choice==2:
-            pass
+            print("""Select category:-
+[1] Technology
+[2] Food
+[3] Clothing
+[4] Furniture & Home Decor""")
+            adm_ctg = int(input("Your choice: "))
+
+            if adm_ctg==1:
+                print(""" Choose Tech Type:- 
+[1] TV
+[2] Laptops
+[3] Smartphones
+[4] Home Appliances""")
+                dec_add_tech = int(input("Your choice: "))
+
+                if dec_add_tech==1:
+                    tv_num = int(input("Enter model num: "))
+                    tv_brand = input("Enter brand: ")
+                    tv_res = input("Enter resolution: ")
+                    tv_disp = input("Enter display size(w/unit): ")
+                    tv_prize = input("Enter price: ")
+                    
+                    tv_query = "INSERT INTO TV VALUES({},'{}','{}','{}','{}')".format(tv_num, tv_brand, tv_res, tv_disp, tv_prize)
+                    cursor_obj.execute(tv_query)
+                    con_obj.commit()
+                    
+            elif adm_ctg==2:
+                pass
+
+            elif adm_ctg==3:
+                pass
+
+            elif adm_ctg==4:
+                pass
 
         elif adm_choice==3:
             pass
