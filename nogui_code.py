@@ -21,7 +21,67 @@ def type_login():
 
 #Under a subject of R&D
 def admin_login_screen():
-    pass
+    cursor_obj.execute("SELECT * FROM ADMIN")
+    adm_data_tup = cursor_obj.fetchall()
+
+    while True:
+        adm_user = input("Enter username: ")
+        adm_user_list = []
+        adm_pass_list = []
+
+        for data_sets in adm_data_tup:
+            adm_user_list.append(data_sets[1])
+            
+        
+        if adm_user in adm_user_list:
+            adm_pass = input("Enter your password: ")
+            valid_us_index = adm_user_list.index(adm_user)
+
+            for pw_data in adm_data_tup:
+                adm_pass_list.append(pw_data[2])
+            
+            if adm_pass==adm_pass_list[valid_us_index]:
+                print("Successfully logged in!")
+                adm_success()                
+
+            else:
+                print("Invalid password!")
+        else:
+            print("Username not found!")
+
+def adm_success():
+    print("""Admin Control Panel
+[1] See Complaints
+[2] Add Product
+[3] Remove Product
+[4] Modify Product""")
+
+    while True:
+        adm_choice = int(input("\nYour choice: "))
+
+        if adm_choice==1:
+            comp_query = "SELECT * FROM COMPLAINTS"
+            cursor_obj.execute(comp_query)
+            comp_data = cursor_obj.fetchall()
+
+            print("\nComplaints:-")
+            for com_tup in comp_data:
+                for com_rec in com_tup:                    
+                    print(com_rec)
+
+        elif adm_choice==2:
+            pass
+
+        elif adm_choice==3:
+            pass
+
+        elif adm_choice==4:
+            pass
+
+        else:
+            print("Invalid Choice!")
+
+
 
 #Working as intended
 def user_login_screen():
