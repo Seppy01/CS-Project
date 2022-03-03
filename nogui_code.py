@@ -1,10 +1,8 @@
-#Project without GUI code:-
 from sys import exit
 import mysql.connector as mysq
 con_obj = mysq.connect(host="localhost", user="root", password="root", database="project")
 cursor_obj = con_obj.cursor()
 
-#Working as intended
 def type_login():
     print("""Select the type of login:-
 ---------------------------------
@@ -71,7 +69,7 @@ def adm_success():
         elif adm_choice==2:
             print("""Select category:-
 [1] Technology
-[2] Clothing
+[2] Fasihion
 [3] Furniture & Home Decor""")
             adm_ctg = int(input("Your choice: "))
 
@@ -145,7 +143,7 @@ def adm_success():
                     con_obj.commit()
 
             elif adm_ctg==2:
-                print("""Choose clothing type:-
+                print("""Choose Fasihion type:-
 [1] Men's Fashion
 [2] Women's Fashion""")
                 dec_add_fsh = int(input("Your choice: "))
@@ -183,13 +181,71 @@ def adm_success():
                 con_obj.commit()
 
         elif adm_choice==3:
-            pass
+            print("""Products:-
+[1] Technology
+[2] Fashion
+[3] Furniture & Home Decor""")
+            rem_ctg = int(input("Your choice: "))
+
+            if rem_ctg==1:
+                print("""Tech Products:-
+[1] TV
+[2] Laptops
+[3] Smartphones
+[4] Home Appliances""")
+                tech_rem = int(input("Your choice: "))
+
+                if tech_rem==1:
+                    rem_tv_mod = int(input("Enter model number: "))
+                    rem_tv_query = "DELETE FROM TV WHERE MODELNO={}".format(rem_tv_mod)
+                    cursor_obj.execute(rem_tv_query)
+                    con_obj.commit()
+
+                if tech_rem==2:
+                    rem_laptop_mod = int(input("Enter model number: "))
+                    rem_laptop_query = "DELETE FROM LAPTOPS WHERE MODELNO={}".format(rem_laptop_mod)
+                    cursor_obj.execute(rem_laptop_query)
+                    con_obj.commit()
+
+                if tech_rem==3:
+                    rem_phone_mod = int(input("Enter model number: "))
+                    rem_phone_query = "DELETE FROM SMARTPHONES WHERE MODELNO={}".format(rem_phone_mod)
+                    cursor_obj.execute(rem_phone_query)
+                    con_obj.commit()
+
+                if tech_rem==4:
+                    rem_app_mod = int(input("Enter model number: "))
+                    rem_app_query = "DELETE FROM APPLIANCES WHERE MODELNO={}".format(rem_app_mod)
+                    cursor_obj.execute(rem_app_query)
+                    con_obj.commit()
+
+            if rem_ctg==2:
+                print("""Choose Fasihion type:-
+[1] Men's Fashion
+[2] Women's Fashion""")
+                rem_cloth = int(input("Your choice: "))
+
+                if rem_cloth==1:
+                    rem_men_clth = int(input("Enter model number: "))
+                    rem_men_query = "DELETE FROM MEN_FASHION WHERE MODELNO={}".format(rem_men_clth)
+                    cursor_obj.execute(rem_men_query)
+                    con_obj.commit()
+
+                if rem_cloth==2:
+                    rem_women_clth = int(input("Enter model number: "))
+                    rem_women_query = "DELETE FROM WOMEN_FASHION WHERE MODELNO={}".format(rem_women_clth)
+                    cursor_obj.execute(rem_women_query)
+                    con_obj.commit()
+
+            if rem_ctg==3:
+                furn_decor_num = int(input("Enter model number: "))
+                furn_decor_query = "DELETE FROM FURNDECOR WHERE MODELNO={}".format(furn_decor_num)
+                cursor_obj.execute(furn_decor_query)
+                con_obj.commit()
 
         else:
             print("Invalid Choice!")
 
-
-#Working as intended
 def user_login_screen():
     while True:
         print("""\nUSER LOGIN
@@ -203,7 +259,7 @@ def user_login_screen():
             log_in()
 
         elif user_choice==2:
-            pass
+            register()
 
         elif user_choice==3:
             print("\nThank you for using the online shopping service!!")
@@ -216,7 +272,16 @@ def user_login_screen():
         else:
             print("Invalid Choice!")
 
-#Working as intended
+def register():
+    regusername = input("Enter your username")
+    regpass = input("Enter a password")
+    
+    regquerry = "insert into user_data values({},{})".format(regusername,regpass)
+    
+    cursor_obj.execute(regquerry)
+    con_obj.commit()
+    user_login_screen()
+
 def log_in():
     cursor_obj.execute("SELECT * FROM USER_DATA")
     user_data_tup = cursor_obj.fetchall()
@@ -245,28 +310,20 @@ def log_in():
                 print("Invalid password!")
         else:
             print("Username not found!")
-                        
 
-#Working as intended
 def complaints():
     complaint = input("Enter your complaint: ")
 
     query = "INSERT INTO COMPLAINTS VALUES('{}')".format(complaint)
     cursor_obj.execute(query)
-
-    #Commit function used when insert/update/delete queries used
     con_obj.commit()                                                       
 
-
-#Under development
 def success_login():
     print("""\nWelcome user to our service!!
 
 [1] Product Categories 
-[2] Your order history
-[3] Cart
-[4] Go Back
-[5] Exit""")
+[2] Go Back
+[3] Exit""")
     while True:
         user_choice_main = int(input("Your choice: "))
 
@@ -274,7 +331,7 @@ def success_login():
             print("""Product Categories:-
 [1] Technology
 [2] Food
-[3] Clothing
+[3] Fasihion
 [4] Furniture & Home Decor""")
 
             while True:
@@ -324,14 +381,7 @@ Price: {i[4]}
                         print("""\n[1] Add to cart
 [2] Buy
 [3] Exit""")
-                        tv_next_option = int(input("Your choice: "))
-
-                        #Add to cart under development
-                        if tv_next_option==1:
-                            pass
-
-                        elif tv_next_option==2:
-                            transaction()
+                        transaction()
 
                     elif tech_choice==2:
                         print("Laptop Models Available:-")
@@ -367,18 +417,7 @@ GPU: {i[5]}
 Display Size: {i[6]}
 Price: {i[7]}
 --------------------------""")
-
-                        print("""\n[1] Add to cart
-[2] Buy
-[3] Exit""")
-                        lap_next_option = int(input("Your choice: "))
-
-                        #Add to cart under development
-                        if lap_next_option==1:
-                            pass
-
-                        elif lap_next_option==2:
-                            transaction()
+                        transaction()
 
                     elif tech_choice==3:
                         print("Smartphone Models Available:-")
@@ -413,18 +452,7 @@ Colour: {i[4]}
 Camera: {i[5]}
 Price Size: {i[6]}
 --------------------------""")
-
-                        print("""\n[1] Add to cart
-[2] Buy
-[3] Exit""")
-                        phone_next_option = int(input("Your choice: "))
-
-                        #Add to cart under development
-                        if phone_next_option==1:
-                            pass
-
-                        elif phone_next_option==2:
-                            transaction()
+                        transaction()
 
 
                     elif tech_choice==4:
@@ -457,19 +485,7 @@ Brand: {i[1]}
 Type: {i[2]}
 Price: {i[3]}
 --------------------------""")
-
-                        print("""\n[1] Add to cart
-[2] Buy
-[3] Exit""")
-
-                        appl_next_option = int(input("Your choice: "))
-
-                        #Add to cart under development
-                        if appl_next_option==1:
-                            pass
-
-                        elif appl_next_option==2:
-                            transaction()
+                        transaction()
 
                     else:
                         print("Invalid Choice!")
@@ -495,17 +511,7 @@ Price: {i[3]}
 
                         fruit_purchase = input("Enter fruit for purchase: ")
                         print(f"Fruit to be purchased: {fruit_purchase}")
-                        print("""\n[1] Add to cart
-[2] Buy
-[3] Exit""")
-                        fruit_next_option = int(input("Your choice: "))
-
-                        #Add to cart under development
-                        if fruit_next_option==1:
-                            pass
-
-                        elif fruit_next_option==2:
-                            transaction()
+                        transaction()
 
                     elif food_choice==2:
                         vegs_query = "SELECT VEGETABLES FROM FOOD"
@@ -518,17 +524,7 @@ Price: {i[3]}
 
                         vegs_purchase = input("Enter vegetables for purchase: ")
                         print(f"Vegetables to be purchased: {vegs_purchase}")
-                        print("""\n[1] Add to cart
-[2] Buy
-[3] Exit""")
-                        vegs_next_option = int(input("Your choice: "))
-
-                        #Add to cart under development
-                        if vegs_next_option==1:
-                            pass
-
-                        elif vegs_next_option==2:
-                            transaction()
+                        transaction()
 
                     elif food_choice==3:
                         bvgs_query = "SELECT BEVERAGES FROM FOOD"
@@ -541,17 +537,7 @@ Price: {i[3]}
 
                         bvgs_purchase = input("Enter beverages for purchase: ")
                         print(f"Beverages to be purchased: {bvgs_purchase}")
-                        print("""\n[1] Add to cart
-[2] Buy
-[3] Exit""")
-                        bvgs_next_option = int(input("Your choice: "))
-
-                        #Add to cart under development
-                        if bvgs_next_option==1:
-                            pass
-
-                        elif bvgs_next_option==2:
-                            transaction()
+                        transaction()
 
                     elif food_choice==4:
                         dairy_query = "SELECT DAIRY_PRODUCTS FROM FOOD"
@@ -564,23 +550,13 @@ Price: {i[3]}
 
                         dairy_purchase = input("Enter dairy products for purchase: ")
                         print(f"Dairy Products to be purchased: {dairy_purchase}")
-                        print("""\n[1] Add to cart
-[2] Buy
-[3] Exit""")
-                        dairy_next_option = int(input("Your choice: "))
-
-                        #Add to cart under development
-                        if dairy_next_option==1:
-                            pass
-
-                        elif dairy_next_option==2:
-                            transaction()
+                        transaction()
 
                     else:
                         print("Invalid choice!")
 
                 elif catg_choice==3:
-                    print("""Clothing Categories:- 
+                    print("""Fasihion Categories:- 
 [1] Men's Fashion
 [2] Women's Fashion
 """)
@@ -592,7 +568,7 @@ Price: {i[3]}
                         cursor_obj.execute(men_query)
                         men_data = cursor_obj.fetchall()
 
-                        print("Men's Clothings Available:-")
+                        print("Men's Fasihions Available:-")
                         for i in men_data:
                             print(i)
 
@@ -610,7 +586,7 @@ Price: {i[3]}
                         cloth_tup = cursor_obj.fetchall()
                         
                         print("\n--------------------------")
-                        print("Your selected clothing:-")
+                        print("Your selected Fasihion:-")
                         for i in cloth_tup:
                             print(f"""Sr No: {i[0]}
 Type: {i[1]}
@@ -618,25 +594,14 @@ Colour: {i[2]}
 Size Available: {i[3]}
 Price: {i[4]}
 --------------------------""")
-
-                        print("""\n[1] Add to cart
-[2] Buy
-[3] Exit""")
-                        men_clth_next = int(input("Your choice: "))
-
-                        #Add to cart under development
-                        if men_clth_next==1:
-                            pass
-
-                        elif men_clth_next==2:
-                            transaction()
+                        transaction()
 
                     elif cl_catg==2:
                         women_query = "SELECT * FROM WOMEN_FASHION"
                         cursor_obj.execute(women_query)
                         women_data = cursor_obj.fetchall()
 
-                        print("Women's Clothings Available:-")
+                        print("Women's Fasihions Available:-")
                         for i in women_data:
                             print(i)
 
@@ -649,12 +614,12 @@ Price: {i[4]}
                             else:
                                 print("Invalid Model Number")
 
-                        wocloth_details = "SELECT * FROM WOMEN_FASHION WHERE SRNO={}".format(men_sr_num)
+                        wocloth_details = "SELECT * FROM WOMEN_FASHION WHERE SRNO={}".format(women_sr_num)
                         cursor_obj.execute(wocloth_details)
                         wocloth_tup = cursor_obj.fetchall()
                         
                         print("\n--------------------------")
-                        print("Your selected clothing:-")
+                        print("Your selected Fasihion:-")
                         for i in wocloth_tup:
                             print(f"""Sr No: {i[0]}
 Type: {i[1]}
@@ -663,17 +628,7 @@ Size Available: {i[3]}
 Price: {i[4]}
 --------------------------""")
 
-                        print("""\n[1] Add to cart
-[2] Buy
-[3] Exit""")
-                        women_clth_next = int(input("Your choice: "))
-
-                        #Add to cart under development
-                        if women_clth_next==1:
-                            pass
-
-                        elif women_clth_next==2:
-                            transaction()
+                        transaction()
 
                     else:
                         print("Invalid choice!")
@@ -708,39 +663,21 @@ Colour: {i[2]}
 Price: {i[3]}
 --------------------------""")
 
-                    print("""\n[1] Add to cart
-[2] Buy
-[3] Exit""")
-                    furn_next = int(input("Your choice: "))
-
-                    #Add to cart under development
-                    if furn_next==1:
-                        pass
-
-                    elif furn_next==2:
-                        transaction()
+                    transaction()
 
                 else:
                     print("Invalid Choice!")
 
-        #Under development
-        elif user_choice_main==2:
-            pass
         
-        #Under development
-        elif user_choice_main==3:
-            pass
-
-        elif user_choice_main==4:
+        elif user_choice_main==2:
             log_in()
 
-        elif user_choice_main==5:
+        elif user_choice_main==3:
             exit()
 
         else:
             print("Invalid choice!")
 
-#Working as intended
 def transaction():
     print("""Mode of Transaction:-
 [1] Credit Card
@@ -755,7 +692,6 @@ def transaction():
         elif transaction_mode==2:
             cash_delivery()
 
-#Working as intended
 def cash_delivery():
     print("""Payment Method: Cash-On-Delivery
 
@@ -776,7 +712,6 @@ Additional charges(for cash on delivery mode): 10 AED
             print("-------------------------------------------------------------------------")
             exit()
 
-#Working as intended
 def credit_card():
     while True:
         card_num = input("Enter card number(XXXX-XXXX-XXXX): ")
