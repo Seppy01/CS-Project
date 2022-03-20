@@ -4,7 +4,7 @@ con_obj = mysq.connect(host="localhost", user="root", password="root", database=
 cursor_obj = con_obj.cursor()
 
 def type_login():
-    print("""Select the type of login:-
+    print("""\nSelect the type of login:-
 ---------------------------------
 [1] Admin
 [2] User
@@ -65,6 +65,7 @@ def adm_success():
             for com_tup in comp_data:
                 for com_rec in com_tup:                    
                     print(com_rec)
+            type_login()
 
         elif adm_choice==2:
             print("""Select category:-
@@ -91,6 +92,7 @@ def adm_success():
                     tv_query = "INSERT INTO TV VALUES({},'{}','{}','{}','{}')".format(tv_num, tv_brand, tv_res, tv_disp, tv_prize)
                     cursor_obj.execute(tv_query)
                     con_obj.commit()
+                    type_login()
 
                 if dec_add_tech==2:
                     laptop_num = int(input("Enter model num: "))
@@ -112,6 +114,7 @@ def adm_success():
                                                                                                         laptop_price)
                     cursor_obj.execute(laptop_query)
                     con_obj.commit()
+                    type_login()
 
                 if dec_add_tech==3:
                     phone_num = int(input("Enter model num: "))
@@ -131,6 +134,7 @@ def adm_success():
                                                                                                             phone_price)
                     cursor_obj.execute(phone_query)
                     con_obj.commit()
+                    type_login()
 
                 if dec_add_tech==4:
                     app_num = int(input("Enter model num: "))
@@ -141,6 +145,7 @@ def adm_success():
                     app_query = "INSERT INTO APPLIANCES VALUES({},'{}','{}','{}')".format(app_num, app_brand, app_type, app_prize)
                     cursor_obj.execute(app_query)
                     con_obj.commit()
+                    type_login()
 
             elif adm_ctg==2:
                 print("""Choose Fasihion type:-
@@ -158,7 +163,8 @@ def adm_success():
                     men_query = "INSERT INTO MEN_FASHION VALUES({},'{}','{}','{}','{}')".format(men_num, men_type, men_colour, men_size, men_price)
                     cursor_obj.execute(men_query)
                     con_obj.commit()
-
+                    type_login()
+                    
                 if dec_add_fsh==2:
                     women_num = int(input("Enter model num: "))
                     women_type = input("Enter brand: ")
@@ -169,6 +175,7 @@ def adm_success():
                     women_query = "INSERT INTO WOMEN_FASHION VALUES({},'{}','{}','{}','{}')".format(women_num, women_type, women_colour, women_size, women_price)
                     cursor_obj.execute(women_query)
                     con_obj.commit()
+                    type_login()
 
             elif adm_ctg==3:
                 furn_num = int(input("Enter model num: "))
@@ -179,6 +186,7 @@ def adm_success():
                 furn_query = "INSERT INTO FURNDECOR VALUES({},'{}','{}','{}','{}')".format(furn_num, furn_type, furn_colour, furn_price)
                 cursor_obj.execute(furn_query)
                 con_obj.commit()
+                type_login()
 
         elif adm_choice==3:
             print("""Products:-
@@ -200,24 +208,28 @@ def adm_success():
                     rem_tv_query = "DELETE FROM TV WHERE MODELNO={}".format(rem_tv_mod)
                     cursor_obj.execute(rem_tv_query)
                     con_obj.commit()
+                    type_login()
 
                 if tech_rem==2:
                     rem_laptop_mod = int(input("Enter model number: "))
                     rem_laptop_query = "DELETE FROM LAPTOPS WHERE MODELNO={}".format(rem_laptop_mod)
                     cursor_obj.execute(rem_laptop_query)
                     con_obj.commit()
+                    type_login()
 
                 if tech_rem==3:
                     rem_phone_mod = int(input("Enter model number: "))
                     rem_phone_query = "DELETE FROM SMARTPHONES WHERE MODELNO={}".format(rem_phone_mod)
                     cursor_obj.execute(rem_phone_query)
                     con_obj.commit()
+                    type_login()
 
                 if tech_rem==4:
                     rem_app_mod = int(input("Enter model number: "))
                     rem_app_query = "DELETE FROM APPLIANCES WHERE MODELNO={}".format(rem_app_mod)
                     cursor_obj.execute(rem_app_query)
                     con_obj.commit()
+                    type_login()
 
             if rem_ctg==2:
                 print("""Choose Fasihion type:-
@@ -227,21 +239,24 @@ def adm_success():
 
                 if rem_cloth==1:
                     rem_men_clth = int(input("Enter model number: "))
-                    rem_men_query = "DELETE FROM MEN_FASHION WHERE MODELNO={}".format(rem_men_clth)
+                    rem_men_query = "DELETE FROM MEN_FASHION WHERE SRNO={}".format(rem_men_clth)
                     cursor_obj.execute(rem_men_query)
                     con_obj.commit()
+                    type_login()
 
                 if rem_cloth==2:
                     rem_women_clth = int(input("Enter model number: "))
-                    rem_women_query = "DELETE FROM WOMEN_FASHION WHERE MODELNO={}".format(rem_women_clth)
+                    rem_women_query = "DELETE FROM WOMEN_FASHION WHERE SRNO={}".format(rem_women_clth)
                     cursor_obj.execute(rem_women_query)
                     con_obj.commit()
+                    type_login()
 
             if rem_ctg==3:
                 furn_decor_num = int(input("Enter model number: "))
-                furn_decor_query = "DELETE FROM FURNDECOR WHERE MODELNO={}".format(furn_decor_num)
+                furn_decor_query = "DELETE FROM FURNDECOR WHERE SRNO={}".format(furn_decor_num)
                 cursor_obj.execute(furn_decor_query)
                 con_obj.commit()
+                type_login()
 
         else:
             print("Invalid Choice!")
@@ -273,11 +288,10 @@ def user_login_screen():
             print("Invalid Choice!")
 
 def register():
-    regusername = input("Enter your username")
-    regpass = input("Enter a password")
+    regusername = input("Enter username: ")
+    regpass = input("Enter password: ")    
     
-    regquerry = "insert into user_data values({},{})".format(regusername,regpass)
-    
+    regquerry = "insert into user_data values('{}','{}')".format(regusername,regpass)
     cursor_obj.execute(regquerry)
     con_obj.commit()
     user_login_screen()
@@ -328,7 +342,7 @@ def success_login():
         user_choice_main = int(input("Your choice: "))
 
         if user_choice_main==1:
-            print("""Product Categories:-
+            print("""\nProduct Categories:-
 [1] Technology
 [2] Food
 [3] Fasihion
@@ -338,7 +352,7 @@ def success_login():
                 catg_choice = int(input("Your choice: "))
 
                 if catg_choice==1:
-                    print("""Products Available:- 
+                    print("""\nProducts Available:- 
 [1] TVs
 [2] Laptops
 [3] Smartphones
@@ -378,13 +392,10 @@ Display Size: {i[3]}
 Price: {i[4]}
 --------------------------""")
 
-                        print("""\n[1] Add to cart
-[2] Buy
-[3] Exit""")
                         transaction()
 
                     elif tech_choice==2:
-                        print("Laptop Models Available:-")
+                        print("\nLaptop Models Available:-")
                         laptop_choice_query = "SELECT * FROM LAPTOPS"
                         cursor_obj.execute(laptop_choice_query)
                         laptop_data_tup = cursor_obj.fetchall()
@@ -420,7 +431,7 @@ Price: {i[7]}
                         transaction()
 
                     elif tech_choice==3:
-                        print("Smartphone Models Available:-")
+                        print("\nSmartphone Models Available:-")
                         phone_choice_query = "SELECT * FROM SMARTPHONES"
                         cursor_obj.execute(phone_choice_query)
                         phone_data_tup = cursor_obj.fetchall()
@@ -456,7 +467,7 @@ Price Size: {i[6]}
 
 
                     elif tech_choice==4:
-                        print("Home Appliances Products Available:-")
+                        print("\nHome Appliances Products Available:-")
                         appl_choice_query = "SELECT * FROM APPLIANCES"
                         cursor_obj.execute(appl_choice_query)
                         appl_data_tup = cursor_obj.fetchall()
@@ -491,7 +502,7 @@ Price: {i[3]}
                         print("Invalid Choice!")
             
                 elif catg_choice==2:
-                    print("""Products Available:- 
+                    print("""\nProducts Available:- 
 [1] Fruits
 [2] Vegetables
 [3] Beverages
@@ -531,7 +542,7 @@ Price: {i[3]}
                         cursor_obj.execute(bvgs_query)
                         bvgs_data = cursor_obj.fetchall()
 
-                        print("Beverages Available:-")
+                        print("\nBeverages Available:-")
                         for i in bvgs_data:
                             print(i[0])
 
@@ -679,7 +690,7 @@ Price: {i[3]}
             print("Invalid choice!")
 
 def transaction():
-    print("""Mode of Transaction:-
+    print("""\nMode of Transaction:-
 [1] Credit Card
 [2] Cash On Delivery""")
 
@@ -745,10 +756,9 @@ def credit_card():
                 print("Invalid card information!")
 
 
-if __name__ == '__main__':
-    print("""=========================================
+print("""=========================================
 Welcome to Online Shopping Service!!
 =========================================""")
-    type_login()
+type_login()
 
 
